@@ -1,0 +1,22 @@
+{
+  "name": "http2-example",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "hoto17296"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}
