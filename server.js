@@ -1,15 +1,31 @@
 var fs = require('fs');
 var http2 = require('http2');
-var autoPush = require('auto-push');
-var serveStatic = require('serve-static');
 
 var opts = {
   key: fs.readFileSync(__dirname + '/ssl/key.pem'),
   cert: fs.readFileSync(__dirname + '/ssl/crt.pem')
 };
 
-var app = serveStatic(__dirname + '/public');
+var root = __dirname + '/public';
 
-var server = http2.createServer(opts, autoPush(app));
+var assets = [
+  '/bower_components/bootstrap/dist/css/bootstrap.min.css',
+  '/bower_components/jquery/dist/jquery.min.js',
+  '/bower_components/bootstrap/dist/js/bootstrap.min.js',
+];
+
+var server = http2.createServer(opts, (req, res) => {
+  if ( req.url === '/' ) {
+    assets.forEach((asset) => {
+      var push = res.push(asset);
+      push.writeHead(200);
+      fs.createReadStream(root + asset).pipe(push);
+    });
+    fs.createReadStream(root + '/index.html').pipe(res);
+  }
+  else {
+    fs.createReadStream(root + req.url).pipe(res);
+  }
+});
 
 server.listen(8443);
