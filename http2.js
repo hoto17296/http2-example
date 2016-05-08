@@ -12,6 +12,7 @@ var assets = [
   '/bower_components/bootstrap/dist/css/bootstrap.min.css',
   '/bower_components/jquery/dist/jquery.min.js',
   '/bower_components/bootstrap/dist/js/bootstrap.min.js',
+  '/style.css',
 ];
 
 var server = http2.createServer(opts, (req, res) => {
